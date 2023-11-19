@@ -14,8 +14,9 @@ public class BookCrudOperations implements CrudOperations<Book> {
     public List<Book> findAll() {
         List<Book> bookList = new ArrayList<>();
 
-        String findAllbook_request = "SELECT book.id, book_name, page_numbers, release_date, topic_name, author_name FROM book \n" +
-                "LEFT JOIN topic ON book.topic_id = topic.id\n" +
+        String findAllbook_request = "SELECT book.id, book_name, page_numbers, release_date, topic_name, author_name " +
+                "FROM book \n" +
+                "LEFT JOIN topic ON book.topic_id = topic.id \n" +
                 "LEFT JOIN author ON book.author_id = author.id";
         try (
                 Connection connection = DB_Connection.getConnection();
