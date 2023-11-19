@@ -1,4 +1,8 @@
 package school.hei;
 
-public class Sex {
+public enum Sex {
+    M, F;
+
+    Sex() {
+    }
 }
