@@ -3,10 +3,7 @@ package school.hei.Repository;
 import school.hei.Model.Book;
 import school.hei.Model.Topic;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,14 +44,74 @@ public class BookCrudOperations implements CrudOperations<Book> {
 
     @Override
     public List<Book> saveAll(List<Book> toSave) {
-        return null;
+        String insertBookQuery = "INSERT INTO book (book_name, page_numbers, release_date, topic_id, author_id)" +
+                "VALUES (?, ?, ?, ?, ?)";
+
+        try (Connection connection = DB_Connection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(insertBookQuery, Statement.RETURN_GENERATED_KEYS)) {
+
+            for (Book book : toSave) {
+                preparedStatement.setString(1, book.getBookName());
+                preparedStatement.setInt(2, book.getPageNumbers());
+                preparedStatement.setDate(3, new java.sql.Date(book.getReleaseDate().getTime()));
+                preparedStatement.setLong(4, book.getTopic().getId());
+                preparedStatement.setLong(5, book.getAuthor().getId());
+
+                preparedStatement.addBatch();
+            }
+
+            int[] affectedRows = preparedStatement.executeBatch();
+            List<Book> savedBooks = new ArrayList<>();
+
+            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                int i = 0;
+                while (generatedKeys.next()) {
+                    Book book = new Book();
+                    book.setId(generatedKeys.getLong(1)); // Assuming the ID is the first column
+                    savedBooks.add(book);
+                    i++;
+                }
+            }
+
+            return savedBooks;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error saving books", e);
+        }
     }
 
-    @Override
     public Book save(Book toSave) {
-        return null;
-    }
+        String insertBookQuery = "INSERT INTO book (book_name, page_numbers, release_date, topic_id, author_id) VALUES (?, ?, ?, ?, ?)";
 
+        try (Connection connection = DB_Connection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(insertBookQuery, Statement.RETURN_GENERATED_KEYS)) {
+
+            preparedStatement.setString(1, toSave.getBookName());
+            preparedStatement.setInt(2, toSave.getPageNumbers());
+            preparedStatement.setDate(3, new java.sql.Date(toSave.getReleaseDate().getTime()));
+            preparedStatement.setLong(4, toSave.getTopic().getId());
+            preparedStatement.setLong(5, toSave.getAuthor().getId());
+
+            int affectedRows = preparedStatement.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Creating book failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    toSave.setId(generatedKeys.getLong(1)); // Assuming the ID is the first column
+                } else {
+                    throw new SQLException("Creating book failed, no ID obtained.");
+                }
+            }
+
+            return toSave;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error saving book", e);
+        }
+    }
     @Override
     public Book delete(Book toDelete) {
         return null;
