@@ -1,6 +1,7 @@
 package school.hei.Repository;
 
 import school.hei.Model.Author;
+import school.hei.Model.Book;
 
 import java.util.List;
 
@@ -12,6 +13,4 @@ public interface CrudOperations<T> {
     T save(T toSave);
 
     T delete(T toDelete);
-
-    List<Author> saveAll(List<Author> toSave);
 }
