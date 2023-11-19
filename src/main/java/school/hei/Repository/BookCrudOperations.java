@@ -113,8 +113,27 @@ public class BookCrudOperations implements CrudOperations<Book> {
             throw new RuntimeException("Error saving book", e);
         }
     }
+
     @Override
     public Book delete(Book toDelete) {
-        return null;
+        String deleteBookQuery = "DELETE FROM book WHERE id = ?";
+
+        try (Connection connection = DB_Connection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(deleteBookQuery)) {
+
+            preparedStatement.setLong(1, toDelete.getId());
+
+            int affectedRows = preparedStatement.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Deleting book failed, no rows affected.");
+            }
+
+            return toDelete;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error deleting book", e);
+        }
+
     }
 }
