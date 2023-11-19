@@ -1,7 +1,6 @@
 package school.hei.Repository;
 
 import school.hei.Model.Author;
-import school.hei.Model.Book;
 import school.hei.Model.Sex;
 
 import java.sql.*;

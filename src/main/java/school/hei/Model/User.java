@@ -3,6 +3,7 @@ package school.hei.Model;
 import school.hei.Model.Sex;
 
 public class User {
+    Long id;
     String username;
     String password;
     Sex sex;
@@ -29,5 +30,14 @@ public class User {
 
     public void setSex(Sex sex) {
         this.sex = sex;
+    }
+
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 }
