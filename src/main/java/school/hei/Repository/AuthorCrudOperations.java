@@ -58,7 +58,9 @@ public class AuthorCrudOperations implements CrudOperations<Author> {
                 int i = 0;
                 while (generatedKeys.next()) {
                     Author savedAuthor = new Author();
-                    savedAuthor.setId(generatedKeys.getLong(1));
+                    savedAuthor.setId(generatedKeys.getLong("id"));
+                    savedAuthor.setAuthorName(generatedKeys.getString("author_name"));
+                    savedAuthor.setSex(Sex.valueOf(generatedKeys.getString("sex")));
                     savedAuthors.add(savedAuthor);
                     i++;
                 }

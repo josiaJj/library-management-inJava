@@ -67,9 +67,12 @@ public class BookCrudOperations implements CrudOperations<Book> {
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                 int i = 0;
                 while (generatedKeys.next()) {
-                    Book book = new Book();
-                    book.setId(generatedKeys.getLong(1)); // Assuming the ID is the first column
-                    savedBooks.add(book);
+                    Book savedBook = new Book();
+                    savedBook.setId(generatedKeys.getLong("id"));
+                    savedBook.setBookName(generatedKeys.getString("book_name"));
+                    savedBook.setPageNumbers(generatedKeys.getInt("page_numbers"));
+                    savedBook.setReleaseDate(generatedKeys.getDate("release_date"));
+                    savedBooks.add(savedBook);
                     i++;
                 }
             }

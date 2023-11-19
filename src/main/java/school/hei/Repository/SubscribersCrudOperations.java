@@ -56,7 +56,10 @@ public class SubscribersCrudOperations implements CrudOperations<Subscribers> {
                 int i = 0;
                 while (generatedKeys.next()) {
                     Subscribers savedSubscriber = new Subscribers();
-                    savedSubscriber.setId(generatedKeys.getLong(1));
+                    savedSubscriber.setId(generatedKeys.getLong("id"));
+                    savedSubscriber.setUsername(generatedKeys.getString("username"));
+                    savedSubscriber.setPassword(generatedKeys.getString("password"));
+                    savedSubscriber.setSex(Sex.valueOf(generatedKeys.getString("sex")));
                     savedSubscribers.add(savedSubscriber);
                     i++;
                 }

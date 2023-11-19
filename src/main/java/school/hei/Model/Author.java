@@ -6,6 +6,11 @@ public class Author {
     private String authorName;
     private Sex sex;
 
+    public Author(String authorName, Sex sex) {
+        this.authorName = authorName;
+        this.sex = sex;
+    }
+
     public Long getId() {
         return id;
     }
