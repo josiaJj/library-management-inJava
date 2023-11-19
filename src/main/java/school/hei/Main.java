@@ -1,9 +1,6 @@
 package school.hei;
 
-import school.hei.Model.Author;
-import school.hei.Model.Book;
-import school.hei.Model.Sex;
-import school.hei.Model.Subscribers;
+import school.hei.Model.*;
 import school.hei.Repository.AuthorCrudOperations;
 import school.hei.Repository.BookCrudOperations;
 import school.hei.Repository.SubscribersCrudOperations;
@@ -13,9 +10,6 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Book book = new Book();
-        Author author = new Author();
-        Subscribers subscribers = new Subscribers();
 
         BookCrudOperations bookCrudOperations = new BookCrudOperations();
         AuthorCrudOperations authorCrudOperations = new AuthorCrudOperations();
@@ -40,7 +34,13 @@ public class Main {
 
         System.out.println("Recently registered Authors : \n" + savedAuthors);
 
-        //TEST delete(Subscribers)
+        // TEST delete(Subscribers)
+        /*Subscribers subscriberToDelete = new Subscribers();
+        subscriberToDelete.setUsername("Subscriber1");
+        subscriberToDelete.setPassword("Password1");
+        subscriberToDelete.setSex(Sex.F);
 
+        subscribersCrudOperations.delete(subscriberToDelete);
+        */
     }
 }
