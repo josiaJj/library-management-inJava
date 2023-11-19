@@ -1,4 +1,4 @@
-package school.hei;
+package school.hei.Repository;
 
 public class BookCrudOperations {
 }

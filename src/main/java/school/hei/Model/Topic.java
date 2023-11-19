@@ -1,4 +1,4 @@
-package school.hei;
+package school.hei.Model;
 
 public class Topic {
     public Topic(String topicName) {

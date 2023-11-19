@@ -1,4 +1,6 @@
-package school.hei;
+package school.hei.Model;
+
+import school.hei.Model.Sex;
 
 public class User {
     String username;

@@ -1,4 +1,4 @@
-package school.hei;
+package school.hei.Model;
 
 public enum Sex {
     M, F;

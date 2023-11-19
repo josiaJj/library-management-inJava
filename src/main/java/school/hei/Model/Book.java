@@ -1,4 +1,4 @@
-package school.hei;
+package school.hei.Model;
 
 import java.util.Date;
 

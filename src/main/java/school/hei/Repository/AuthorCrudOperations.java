@@ -1,4 +1,7 @@
-package school.hei;
+package school.hei.Repository;
+
+import school.hei.Model.Author;
+import school.hei.Model.Sex;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -7,7 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubscribersCrudOperations implements CrudOperations<Author> {
+public class AuthorCrudOperations implements CrudOperations {
     @Override
     public List<Author> findAll() {
         List<Author> authorList = new ArrayList<>();
