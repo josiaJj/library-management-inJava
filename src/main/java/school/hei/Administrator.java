@@ -1,4 +1,4 @@
 package school.hei;
 
-public class Administrator {
+public class Administrator extends User{
 }
